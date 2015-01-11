@@ -1,0 +1,33 @@
+<h1>BackboneAuthDemo</h1>
+
+<% if(BackboneAuthDemo.currentUser.isSignedIn()) { %>
+
+  <p>Signed in as: <a href="#/users/<%= BackboneAuthDemo.currentUser.id %>"><%= BackboneAuthDemo.currentUser.escape("first_name") %></a> | <a href="#" id="sign-out-link">Sign Out</a></p>
+
+<% } else { %>
+
+  <form id="sign-in-form">
+    <h3>Sign In</h3>
+
+    <label>
+      Email
+      <input type="email" name="user[email]">
+    </label>
+
+    <br>
+
+    <label>
+      Password
+      <input type="password" name="user[password]">
+    </label>
+
+    <br>
+
+    <button>Sign In</button>
+  </form>
+
+  <p><a href="#/users/new">Sign Up</a></p>
+
+<% } %>
+
+<hr>
