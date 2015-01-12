@@ -2,8 +2,7 @@ BackboneAuthDemo.Views.SignIn = Backbone.View.extend({
 
   initialize: function(options){
     this.callback = options.callback;
-    this.listenTo(BackboneAuthDemo.currentUser, "sync change", this.checkSignedIn);
-    this.checkSignedIn();
+    this.listenTo(BackboneAuthDemo.currentUser, "signIn", this.signInCallback);
   },
 
   events: {
@@ -32,13 +31,11 @@ BackboneAuthDemo.Views.SignIn = Backbone.View.extend({
     });
   },
 
-  checkSignedIn: function(event){
-    if(BackboneAuthDemo.currentUser.isSignedIn()){
-      if(this.callback) {
-        this.callback();
-      } else {
-        Backbone.history.navigate("", { trigger: true });
-      }
+  signInCallback: function(event){
+    if(this.callback) {
+      this.callback();
+    } else {
+      Backbone.history.navigate("", { trigger: true });
     }
   }
 

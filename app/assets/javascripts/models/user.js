@@ -16,7 +16,7 @@ BackboneAuthDemo.Models.CurrentUser = BackboneAuthDemo.Models.User.extend({
   url: "/api/session",
 
   initialize: function(options){
-
+    this.listenTo(this, "change", this.fireSessionEvent);
   },
 
   isSignedIn: function() {
@@ -25,7 +25,10 @@ BackboneAuthDemo.Models.CurrentUser = BackboneAuthDemo.Models.User.extend({
 
   signIn: function(options){
     var model = this;
-    var credentials = {"user[email]": options.email, "user[password]": options.password};
+    var credentials = {
+      "user[email]": options.email,
+      "user[password]": options.password
+    };
 
     $.ajax({
       url: this.url,
@@ -54,6 +57,16 @@ BackboneAuthDemo.Models.CurrentUser = BackboneAuthDemo.Models.User.extend({
         options.success && options.success();
       }
     });
+  },
+
+  fireSessionEvent: function(){
+    if(this.isSignedIn()){
+      this.trigger("signIn");
+      console.log("currentUser is signed in!", this);
+    } else {
+      this.trigger("signOut");
+      console.log("currentUser is signed out!", this);
+    }
   }
 
 });

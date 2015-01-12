@@ -23,7 +23,7 @@ BackboneAuthDemo.Routers.Users = Backbone.Router.extend({
   },
 
   new: function(){
-    if (!this._requireSignedOut() { return; }
+    if (!this._requireSignedOut()) { return; }
 
     var model = new this.collection.model();
     var formView = new BackboneAuthDemo.Views.UsersForm({
