@@ -14,7 +14,8 @@ BackboneAuthDemo.Routers.Users = Backbone.Router.extend({
   },
 
   index: function(){
-    if (!this._requireSignedIn(this.index.bind(this))) { return; }
+    var callback = this.index.bind(this);
+    if (!this._requireSignedIn(callback)) { return; }
 
     var indexView = new BackboneAuthDemo.Views.UsersIndex({
       collection: this.collection
@@ -34,7 +35,8 @@ BackboneAuthDemo.Routers.Users = Backbone.Router.extend({
   },
 
   show: function(id){
-    if (!this._requireSignedIn(this.show.bind(this, id))) { return; }
+    var callback = this.show.bind(this, id);
+    if (!this._requireSignedIn(callback)) { return; }
 
     var model = this.collection.getOrFetch(id);
     var showView = new BackboneAuthDemo.Views.UsersShow({
