@@ -3,7 +3,7 @@
 <ul>
   <% users.each(function(user){ %>
   <li>
-    <a href="#/users/<%= user.id %>"><%= user.escape("first_name") %></a>
+    <a href="#users/<%= user.id %>"><%= user.escape("first_name") %></a>
   </li>
   <% }) %>
 </ul>

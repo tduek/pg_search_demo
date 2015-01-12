@@ -9,10 +9,13 @@ BackboneAuthDemo.Routers.Users = Backbone.Router.extend({
   routes: {
     "": "index",
     "users/new": "new",
-    "users/:id": "show"
+    "users/:id": "show",
+    "session/new": "signIn"
   },
 
   index: function(){
+    if (!this._requireSignedIn(this.index.bind(this))) { return; }
+
     var indexView = new BackboneAuthDemo.Views.UsersIndex({
       collection: this.collection
     });
@@ -20,6 +23,8 @@ BackboneAuthDemo.Routers.Users = Backbone.Router.extend({
   },
 
   new: function(){
+    if (!this._requireSignedOut() { return; }
+
     var model = new this.collection.model();
     var formView = new BackboneAuthDemo.Views.UsersForm({
       collection: this.collection,
@@ -29,11 +34,46 @@ BackboneAuthDemo.Routers.Users = Backbone.Router.extend({
   },
 
   show: function(id){
+    if (!this._requireSignedIn(this.show.bind(this, id))) { return; }
+
     var model = this.collection.getOrFetch(id);
     var showView = new BackboneAuthDemo.Views.UsersShow({
       model: model
     });
     this._swapView(showView);
+  },
+
+  signIn: function(callback){
+    if (!this._requireSignedOut(callback)) { return; }
+
+    var signInView = new BackboneAuthDemo.Views.SignIn({
+      callback: callback
+    });
+    this._swapView(signInView);
+  },
+
+  _requireSignedIn: function(callback){
+    if (!BackboneAuthDemo.currentUser.isSignedIn()) {
+      callback = callback || this._goHome.bind(this);
+      this.signIn(callback);
+      return false;
+    }
+
+    return true;
+  },
+
+  _requireSignedOut: function(callback){
+    if (BackboneAuthDemo.currentUser.isSignedIn()) {
+      callback = callback || this._goHome.bind(this);
+      callback();
+      return false;
+    }
+
+    return true;
+  },
+
+  _goHome: function(){
+    Backbone.history.navigate("", { trigger: true });
   },
 
   _swapView: function (view) {

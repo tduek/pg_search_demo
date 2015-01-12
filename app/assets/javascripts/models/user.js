@@ -23,9 +23,9 @@ BackboneAuthDemo.Models.CurrentUser = BackboneAuthDemo.Models.User.extend({
     return !this.isNew();
   },
 
-  signIn: function(email, password, errorCallback){
+  signIn: function(options){
     var model = this;
-    var credentials = {"user[email]": email, "user[password]": password};
+    var credentials = {"user[email]": options.email, "user[password]": options.password};
 
     $.ajax({
       url: this.url,
@@ -34,14 +34,15 @@ BackboneAuthDemo.Models.CurrentUser = BackboneAuthDemo.Models.User.extend({
       dataType: "json",
       success: function(data){
         model.set(data);
+        options.success && options.success();
       },
       error: function(){
-        errorCallback();
+        options.error && options.error();
       }
     });
   },
 
-  signOut: function(){
+  signOut: function(options){
     var model = this;
 
     $.ajax({
@@ -50,6 +51,7 @@ BackboneAuthDemo.Models.CurrentUser = BackboneAuthDemo.Models.User.extend({
       dataType: "json",
       success: function(data){
         model.clear();
+        options.success && options.success();
       }
     });
   }

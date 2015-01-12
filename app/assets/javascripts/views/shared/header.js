@@ -6,8 +6,7 @@ BackboneAuthDemo.Views.Header = Backbone.View.extend({
   },
 
   events: {
-    "click #sign-out-link": "signOut",
-    "submit #sign-in-form": "signIn"
+    "click #sign-out-link": "signOut"
   },
 
   template: JST['shared/header'],
@@ -19,22 +18,13 @@ BackboneAuthDemo.Views.Header = Backbone.View.extend({
     return this;
   },
 
-  signIn: function(event){
-    event.preventDefault();
-    var $form = $(event.currentTarget);
-    var formData = $form.serializeJSON().user;
-
-    BackboneAuthDemo.currentUser.signIn(
-      formData.email,
-      formData.password,
-      function(){
-        alert("Wrong username/password combination. Please try again.");
-      });
-  },
-
   signOut: function(event){
     event.preventDefault();
-    BackboneAuthDemo.currentUser.signOut();
+    BackboneAuthDemo.currentUser.signOut({
+      success: function(){
+        Backbone.history.navigate("session/new", { trigger: true });
+      }
+    });
   }
 
 });

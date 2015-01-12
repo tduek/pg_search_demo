@@ -26,10 +26,14 @@ BackboneAuthDemo.Views.UsersForm = Backbone.View.extend({
 
     this.model.set(userData);
     this.model.save({}, {
-      success: function () {
+      success: function(){
         BackboneAuthDemo.currentUser.fetch();
         that.collection.add(that.model, { merge: true });
         Backbone.history.navigate("", { trigger: true });
+      },
+      error: function(data){
+        alert("Form invalid. Let the user know what went wrong.");
+        console.log(data);
       }
     });
   }
