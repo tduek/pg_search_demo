@@ -8,7 +8,24 @@ BackboneAuthDemo.Models.User = Backbone.Model.extend({
   toJSON: function(){
     var json = { user: _.clone(this.attributes) };
     return json;
-  }
+  },
+	
+	posts: function () {
+		if (!this._posts) {
+			this._posts = new BackboneAuthDemo.Collections.Posts();
+		}
+		
+		return this._posts;
+	},
+	
+	parse: function (resp) {
+		if (resp.posts) {
+			this.posts().set(resp.posts, {parse: true});
+			delete resp.posts
+		}
+		
+		return resp;
+	}
 });
 
 BackboneAuthDemo.Models.CurrentUser = BackboneAuthDemo.Models.User.extend({

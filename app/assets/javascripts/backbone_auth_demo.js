@@ -14,4 +14,3 @@ window.BackboneAuthDemo = {
     Backbone.history.start();
   }
 };
-

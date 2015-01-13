@@ -10,8 +10,40 @@ BackboneAuthDemo.Routers.Users = Backbone.Router.extend({
     "": "index",
     "users/new": "new",
     "users/:id": "show",
-    "session/new": "signIn"
+    "session/new": "signIn",
+		"posts/new": "newPost",
+		"posts/:id": "showPost"
   },
+	
+	newPost: function () {
+		var callback = this.newPost.bind(this);
+		if (!this._requireSignedIn(callback)) { return; }
+		
+		var newPost = new (BackboneAuthDemo.currentUser.posts().model)();
+		var newPostView = new BackboneAuthDemo.Views.PostForm({
+			model: newPost
+		});
+		this._swapView(newPostView);
+	},
+	
+	showPost: function (postId) {
+		var post;
+		
+		for (var user, i = 0; i < this.collection.length; i++) {
+			user = this.collection.at(i);
+			if (post = user.posts().get(postId)) { break; }
+		}
+		
+		if (!post) {
+			post = new BackboneAuthDemo.Models.Post({id: postId});
+		}
+		post.fetch();
+		
+		var showPostView = new BackboneAuthDemo.Views.PostShow({
+			model: post
+		});
+		this._swapView(showPostView);
+	},
 
   index: function(){
     var callback = this.index.bind(this);
