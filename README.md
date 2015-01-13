@@ -17,3 +17,18 @@ Files to check out:
 - [users_router.js](./app/assets/javascripts/routers/users_router.js)
 - [header.js](./app/assets/javascripts/views/shared/header.js)
 - [sign_in.js](./app/assets/javascripts/views/shared/sign_in.js)
+
+# [PgSearch][pg_search] and ([Kaminari][kaminari])
+
+[pg_search]: https://github.com/Casecommons/pg_search
+[kaminari]: https://github.com/amatsuda/kaminari
+
+Files to check out:
+
+- [user.rb](./app/models/user.rb)
+- [post.rb](./app/models/post.rb)
+- [searches_controller.rb](./app/controllers/api/searches_controller.rb)
+- [searches/index.json.jbuilder](./app/views/api/searches/index.json.jbuilder)
+- [collections/search_results.js](./app/assets/javascripts/collections/search_results.js)
+- [views/search.js](./app/assets/javascripts/views/shared/search.js)
+
