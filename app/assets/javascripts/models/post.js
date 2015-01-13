@@ -1,3 +1,5 @@
 BackboneAuthDemo.Models.Post = Backbone.Model.extend({
-	urlRoot: "api/posts"
+	urlRoot: "api/posts",
+	
+	class_type: "Post"
 });

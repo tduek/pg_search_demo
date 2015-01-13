@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  include PgSearch
+  multisearchable against: [:first_name, :last_name, :email]
+  
   attr_reader :password
   
   has_many :posts

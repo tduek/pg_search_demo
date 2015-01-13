@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :posts, only: [:index]
     end
     resources :posts, only: [:show, :create]
+    get "search", to: "searches#index"
   end
 
   root to: "pages#root"

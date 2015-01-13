@@ -1,5 +1,7 @@
 BackboneAuthDemo.Models.User = Backbone.Model.extend({
   urlRoot: "/api/users",
+	
+	class_type: "User",
 
   fullName: function(){
     return this.escape("first_name") + " " + this.escape("last_name");
@@ -79,10 +81,10 @@ BackboneAuthDemo.Models.CurrentUser = BackboneAuthDemo.Models.User.extend({
   fireSessionEvent: function(){
     if(this.isSignedIn()){
       this.trigger("signIn");
-      console.log("currentUser is signed in!", this);
+      // console.log("currentUser is signed in!", this);
     } else {
       this.trigger("signOut");
-      console.log("currentUser is signed out!", this);
+      // console.log("currentUser is signed out!", this);
     }
   }
 
