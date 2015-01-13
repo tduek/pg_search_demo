@@ -12,7 +12,7 @@ BackboneAuthDemo.Models.User = Backbone.Model.extend({
 	
 	posts: function () {
 		if (!this._posts) {
-			this._posts = new BackboneAuthDemo.Collections.Posts();
+			this._posts = new BackboneAuthDemo.Collections.Posts([], {user: this});
 		}
 		
 		return this._posts;

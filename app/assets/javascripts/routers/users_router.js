@@ -1,6 +1,6 @@
 BackboneAuthDemo.Routers.Users = Backbone.Router.extend({
 
-  initialize: function(options){
+  initialize: function (options) {
     this.$rootEl = options.$rootEl;
     this.collection = new BackboneAuthDemo.Collections.Users();
     this.collection.fetch();
@@ -12,8 +12,14 @@ BackboneAuthDemo.Routers.Users = Backbone.Router.extend({
     "users/:id": "show",
     "session/new": "signIn",
 		"posts/new": "newPost",
-		"posts/:id": "showPost"
+		"posts/:id": "showPost",
+		"search": "search"
   },
+	
+	search: function () {
+		var searchView = new BackboneAuthDemo.Views.Search();
+		this._swapView(searchView);
+	},
 	
 	newPost: function () {
 		var callback = this.newPost.bind(this);
